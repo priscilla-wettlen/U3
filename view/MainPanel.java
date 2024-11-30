@@ -6,7 +6,6 @@ public class MainPanel extends JPanel {
     private LPanel lPanel;
     private RPanel rPanel;
 
-
     public MainPanel(int width, int height, MainFrame mainFrame) {
         super(null);
         this.setSize(width, height);
@@ -25,5 +24,4 @@ public class MainPanel extends JPanel {
     protected RPanel getRightPanel() {
         return rPanel;
     }
-
 }

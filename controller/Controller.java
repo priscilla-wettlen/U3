@@ -4,6 +4,9 @@ package controller;
 import view.CustomCakeFrame;
 import view.MainFrame;
 import view.ButtonType;
+import model.Cake; //From Grace
+import model.CakeManager; //From Grace
+import java.util.List; //From Grace
 
 public class Controller {
     private MainFrame view;
@@ -17,8 +20,12 @@ public class Controller {
     private double costCurrentOrder = 0; // for test purposes only
     private int nbrOfOrders = 0; // for test purposes only
 
+    private CakeManager model; // From Grace: Add CakeModel instance
+
     public Controller() {
         view = new MainFrame(1000, 500, this);
+        model = new CakeManager(); // From Grace: Initialize the CakeModel (data handling)
+
         loadStringTestValues(); //for test purposes - remove when not needed more
         view.enableAllButtons();
         view.disableAddMenuButton();
@@ -48,7 +55,6 @@ public class Controller {
         order1Simulation[1] = "tårta1 Pris1";
         order1Simulation[2] = "tårta2 Pris2";
         order1Simulation[3] = "vetebulle Pris11";
-
     }
 
     //This method is called by class MinFrame when a button in teh GUI is pressed
@@ -107,7 +113,6 @@ public class Controller {
 
     public void viewSelectedOrder(int selectionIndex){
         System.out.println("Index selection left panel: " + selectionIndex); //for test purposes  - remove when not needed
-
         if ((selectionIndex != -1) && currentLeftMenu==ButtonType.OrderHistory){
             costCurrentOrder = 100; //for test purposes - replace with calculation of cost when how orders are handled is implemented in model
             view.populateRightPanel(order1Simulation); //update left panel with order details - this takes a shortcut in updating the entire information in the panel not just adds to the end
@@ -115,9 +120,16 @@ public class Controller {
         }
     }
 
-
     public void setToCakeMenu() {
         currentLeftMenu = ButtonType.Cake;
+
+        List<Cake> cakesMenu = model.getCakesMenu(); // From Grace
+        cakeMenuString = new String[cakesMenu.size()]; //From Grace
+
+        for (int i = 0; i < cakesMenu.size(); i++) { //From Grace
+            cakeMenuString[i] = cakesMenu.get(i).toString(); // From Grace
+        } //From Grace
+
         view.populateLeftPanel(cakeMenuString);
         view.populateRightPanel(currentOrderArray); //update left panel with new item - this takes a shortcut in updating the entire information in the panel not just adds to the end
         view.setTextCostLabelRightPanel("Total cost of order: " + String.valueOf(costCurrentOrder)); //set the text to show cost of current order
@@ -125,7 +137,6 @@ public class Controller {
         view.disableCakeMenuButton();
         view.disableViewSelectedOrderButton();
     }
-
 
     public void setToPerUnitItemMenu() {
         currentLeftMenu = ButtonType.PerUnitItem;
@@ -146,7 +157,6 @@ public class Controller {
         view.disableOrderButton();
     }
 
-
     public void addNewCake() {
         newCakeType = new CustomCakeFrame(this);
         //For grade VG: Add more code to save the new cake type and update menu,
@@ -157,12 +167,11 @@ public class Controller {
         System.out.println("Pressed Order to create a new order"); //for test purposes - remove when not needed more
         currentOrderArray = new String[10];  // for test purposes - remove when not needed more
         costCurrentOrder = 0;
+
         view.clearRightPanel(); //Removes information from right panel in GUI
         view.setTextCostLabelRightPanel("TOTAL COST: 0");
         view.enableAllButtons();
         view.disableAddMenuButton();
         view.disableViewSelectedOrderButton();
     }
-
-
 }
