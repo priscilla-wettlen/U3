@@ -5,7 +5,7 @@ public class Cake extends BakeryItem {
     private int cakeSize;
     private List<Topping> toppings;
 
-    public Cake(String name, int size, List<Topping> toppings) {
+    public Cake(String name, int cakeSize, List<Topping> toppings) {
         super(name, 0);
         this.cakeSize = cakeSize;
         this.toppings = toppings;
@@ -15,7 +15,7 @@ public class Cake extends BakeryItem {
         return cakeSize;
     }
 
-    public void setCakeSize(int ckaeSize) {
+    public void setCakeSize(int cakeSize) {
         this.cakeSize = cakeSize;
     }
 
@@ -56,12 +56,13 @@ public class Cake extends BakeryItem {
     @Override
     public String toString() {
         String toppingsList = "";
+        List<Topping> toppings = getToppings();
         for (int i = 0; i < toppings.size(); i++) {
             toppingsList += toppings.get(i).getName();
             if (i < toppings.size() - 1) {
                 toppingsList += ", ";
             }
         }
-        return super.getName() + ", Size: " + cakeSize + " pieces, Toppings: " + toppingsList + ", Price: " + calculatePrice();
+        return super.getName() + ", Size: " + getCakeSize() + " pieces, Toppings: " + toppingsList + ", Price: " + calculatePrice();
     }
 }
