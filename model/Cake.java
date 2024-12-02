@@ -2,21 +2,21 @@ package model;
 import java.util.List;
 
 public class Cake extends BakeryItem {
-    private int size;
+    private int cakeSize;
     private List<Topping> toppings;
 
     public Cake(String name, int size, List<Topping> toppings) {
         super(name, 0);
-        this.size = size;
+        this.cakeSize = cakeSize;
         this.toppings = toppings;
     }
 
-    public int getSize() {
-        return size;
+    public int getCakeSize() {
+        return cakeSize;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setCakeSize(int ckaeSize) {
+        this.cakeSize = cakeSize;
     }
 
     public List<Topping> getToppings() {
@@ -31,7 +31,7 @@ public class Cake extends BakeryItem {
     public double calculatePrice() {
         double basePrice = 0;
 
-        switch (size) {
+        switch (cakeSize) {
             case 4:
                 basePrice = 100;
                 break;
@@ -55,13 +55,13 @@ public class Cake extends BakeryItem {
 
     @Override
     public String toString() {
-        StringBuilder toppingsList = new StringBuilder();
+        String toppingsList = "";
         for (int i = 0; i < toppings.size(); i++) {
-            toppingsList.append(toppings.get(i).getName());
+            toppingsList += toppings.get(i).getName();
             if (i < toppings.size() - 1) {
-                toppingsList.append(", ");
+                toppingsList += ", ";
             }
         }
-        return super.getName() + ", Size: " + size + " pieces, Toppings: " + toppingsList + ", Price: " + calculatePrice();
+        return super.getName() + ", Size: " + cakeSize + " pieces, Toppings: " + toppingsList + ", Price: " + calculatePrice();
     }
 }
