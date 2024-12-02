@@ -55,11 +55,11 @@ public class Cake extends BakeryItem {
 
     @Override
     public String toString() {
-        StringBuilder toppingsList = new StringBuilder();
+        String toppingsList = "";
         for (int i = 0; i < toppings.size(); i++) {
-            toppingsList.append(toppings.get(i).getName());
+            toppingsList += toppings.get(i).getName();
             if (i < toppings.size() - 1) {
-                toppingsList.append(", ");
+                toppingsList += ", ";
             }
         }
         return super.getName() + ", Size: " + size + " pieces, Toppings: " + toppingsList + ", Price: " + calculatePrice();
