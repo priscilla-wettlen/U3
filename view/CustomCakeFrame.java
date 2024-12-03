@@ -25,14 +25,14 @@ public class CustomCakeFrame extends JFrame implements ActionListener {
 
     public void setupPanel() {
         /*
-           TODO: Skapa ny tårta här och spara den.
+           TODO: Skapa ny pizza här och spara den.
             */
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         /*
-           TODO: Skapa ny tårta här och spara den.
+           TODO: Skapa ny pizza här och spara den.
             */
     }
 }
