@@ -5,6 +5,7 @@ import view.CustomCakeFrame;
 import view.MainFrame;
 import view.ButtonType;
 import model.Cake; //From Grace
+import model.PerUnitItem;
 import model.CakeManager; //From Grace
 import model.Order; //From Grace
 import model.OrderManager; //From Grace
@@ -25,6 +26,7 @@ public class Controller {
 
     private CakeManager model; // From Grace
     private OrderManager orderManager; // From Grace
+    private PerUnitItem item;
 
     public Controller() {
         view = new MainFrame(1000, 500, this);
@@ -50,8 +52,10 @@ public class Controller {
         cakeMenuString[2] = "tårta2, storlek: 4 bitar, topping1, topping2, Pris2";
         cakeMenuString[3] = "tårta3, storlek: 12 bitar,topping1, topping3, Pris3";
 
-        perUnitItemMenuString[0] = "vetebulle, Pris11";
-        perUnitItemMenuString[1] = "pepparkaka, Pris22";
+        perUnitItemMenuString[0] = "Kanelbulle, 30";
+        perUnitItemMenuString[1] = "Pepparkaka, 10";
+        perUnitItemMenuString[2] = "Coca Cola 33cl, 17";
+        perUnitItemMenuString[3] = "Ramlösa 33cl, 15";
 
         orderHistoryMenuString[0] = "order1: kostnad:100";
         orderHistoryMenuString[1] = "order2: kostand:200";
@@ -111,7 +115,12 @@ public class Controller {
                     //currentOrderArray[nbrOfOrders] = cakeMenuString[selectionIndex].toString(); //for test purposes - needs to be replaced with solution of finding chosen menu item matching architecture for model
                     break;
                 case PerUnitItem:
-                    currentOrderArray[nbrOfOrders] = perUnitItemMenuString[selectionIndex].toString(); //see comment for case above
+                    PerUnitItem selectedItem = orderManager.getPerUnitItems().get(selectionIndex);
+                    selectedItemDetails = selectedItem.toString();
+                    itemPrice = selectedItem.getPrice();
+                    //TODO
+                    //orderManager.addPerUnitItem(item);
+                    //currentOrderArray[nbrOfOrders] = perUnitItemMenuString[selectionIndex].toString(); //see comment for case above
                     break;
             }
             currentOrderArray[nbrOfOrders] = selectedItemDetails;
@@ -154,6 +163,16 @@ public class Controller {
 
     public void setToPerUnitItemMenu() {
         currentLeftMenu = ButtonType.PerUnitItem;
+
+        List<PerUnitItem> perUnitItems = orderManager.getPerUnitItems();
+        perUnitItemMenuString = new String[perUnitItems.size()];
+
+        for (int i = 0; i < perUnitItems.size(); i++){
+            perUnitItemMenuString[i] = perUnitItems.get(i).toString();
+
+        }
+
+
         view.populateLeftPanel(perUnitItemMenuString);
         view.populateRightPanel(currentOrderArray); //update left panel with new item - this takes a shortcut in updating the entire information in the panel not just adds to the end
         view.setTextCostLabelRightPanel("Total cost of order: " + String.valueOf(costCurrentOrder)); //set the text to show cost of current order
