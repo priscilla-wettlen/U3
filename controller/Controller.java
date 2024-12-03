@@ -92,23 +92,32 @@ public class Controller {
     }
 
     public void addItemToOrder(int selectionIndex) {
-        System.out.println("Index selection left panel: " + selectionIndex); //for test purposes  - remove when not needed
+        //System.out.println("Index selection left panel: " + selectionIndex); //for test purposes  - remove when not needed
 
         if (selectionIndex != -1){ // if something is selected in the left menu list
+            String selectedItemDetails = "";
+            double itemPrice = 0;
+
             switch (currentLeftMenu) { //This might need to change depending on architecture
                 case Cake:
-                    currentOrderArray[nbrOfOrders] = cakeMenuString[selectionIndex].toString(); //for test purposes - needs to be replaced with solution of finding chosen menu item matching architecture for model
+                    Cake selectedCake = model.getCakesMenu().get(selectionIndex);
+                    selectedItemDetails = selectedCake.toString();
+                    itemPrice = selectedCake.getPrice();
+                    //currentOrderArray[nbrOfOrders] = cakeMenuString[selectionIndex].toString(); //for test purposes - needs to be replaced with solution of finding chosen menu item matching architecture for model
                     break;
                 case PerUnitItem:
                     currentOrderArray[nbrOfOrders] = perUnitItemMenuString[selectionIndex].toString(); //see comment for case above
                     break;
             }
-            nbrOfOrders++; //for test purposes - need to be removed or changed when model for handling orders is implemented
-            costCurrentOrder = costCurrentOrder + 100; //for test purposes - replace with calculation of cost when how orders are handled is implemented in model
+            currentOrderArray[nbrOfOrders] = selectedItemDetails;
+            nbrOfOrders++;
+            costCurrentOrder += itemPrice;
+
+            //nbrOfOrders++; //for test purposes - need to be removed or changed when model for handling orders is implemented
+            //costCurrentOrder = costCurrentOrder + 100; //for test purposes - replace with calculation of cost when how orders are handled is implemented in model
             view.populateRightPanel(currentOrderArray); //update left panel with new item - this takes a shortcut in updating the entire information in the panel not just adds to the end
             view.setTextCostLabelRightPanel("Total cost of order: " + String.valueOf(costCurrentOrder)); //set the text to show cost of current order
         }
-
     }
 
     public void viewSelectedOrder(int selectionIndex){
