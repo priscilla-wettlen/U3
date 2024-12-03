@@ -33,9 +33,6 @@ public class OrderManager {
         orders.add(order);
     }
 
-//    public void addPerUnitItem(PerUnitItem item) {
-//        perUnitItems.add(item);
-//    }
 
     public List<Order> getOrderHistory() {
         return orders;
