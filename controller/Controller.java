@@ -6,6 +6,9 @@ import view.MainFrame;
 import view.ButtonType;
 import model.Cake; //From Grace
 import model.CakeManager; //From Grace
+import model.Order; //From Grace
+import model.OrderManager; //From Grace
+import java.util.ArrayList; // From Grace
 import java.util.List; //From Grace
 
 public class Controller {
@@ -20,11 +23,13 @@ public class Controller {
     private double costCurrentOrder = 0; // for test purposes only
     private int nbrOfOrders = 0; // for test purposes only
 
-    private CakeManager model; // From Grace: Add CakeModel instance
+    private CakeManager model; // From Grace
+    private OrderManager orderManager; // From Grace
 
     public Controller() {
         view = new MainFrame(1000, 500, this);
-        model = new CakeManager(); // From Grace: Initialize the CakeModel (data handling)
+        model = new CakeManager(); // From Grace
+        orderManager = new OrderManager(); // From Grace
 
         loadStringTestValues(); //for test purposes - remove when not needed more
         view.enableAllButtons();
@@ -173,8 +178,29 @@ public class Controller {
     }
 
     public void placeOrder() {
-        System.out.println("Pressed Order to create a new order"); //for test purposes - remove when not needed more
-        currentOrderArray = new String[10];  // for test purposes - remove when not needed more
+        //System.out.println("Pressed Order to create a new order"); //for test purposes - remove when not needed more
+        //currentOrderArray = new String[10];  // for test purposes - remove when not needed more
+
+        if (nbrOfOrders == 0) {
+            System.out.println("Your order must contain at least 1 item!");
+            return;
+        }
+
+        List<String> itemsToOrder = new ArrayList<>();
+        for (String item : currentOrderArray) {
+            if (item != null) {
+                itemsToOrder.add(item);
+            }
+        }
+
+        Order newOrder = new Order(itemsToOrder, costCurrentOrder);
+        orderManager.addOrder(newOrder);
+
+        for (int i = 0; i < currentOrderArray.length; i++) {
+            currentOrderArray[i] = null;
+        }
+
+        nbrOfOrders = 0;
         costCurrentOrder = 0;
 
         view.clearRightPanel(); //Removes information from right panel in GUI
