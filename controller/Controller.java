@@ -118,8 +118,6 @@ public class Controller {
                     PerUnitItem selectedItem = orderManager.getPerUnitItems().get(selectionIndex);
                     selectedItemDetails = selectedItem.toString();
                     itemPrice = selectedItem.getPrice();
-                    //TODO
-                    //orderManager.addPerUnitItem(item);
                     //currentOrderArray[nbrOfOrders] = perUnitItemMenuString[selectionIndex].toString(); //see comment for case above
                     break;
             }
