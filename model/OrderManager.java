@@ -14,6 +14,10 @@ public class OrderManager {
         orders.add(order);
     }
 
+    // public int getOrderLength() {
+        // return orders.size();
+    // }
+
     public List<Order> getOrderHistory() {
         return orders;
     }
