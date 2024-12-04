@@ -5,13 +5,9 @@ import java.util.List;
 
 public class Order {
     private List<BakeryItem> currentOrderArray;
-    double costCurrentOrder = 0;
 
-    // public Order(List<String> currentOrderArray, double totalPrice) {
     public Order() {
         currentOrderArray = new ArrayList<>();
-        // this.currentOrderArray = currentOrderArray;
-        // this.totalPrice = totalPrice;
     }
 
     public List<String> getOrderItems() {
