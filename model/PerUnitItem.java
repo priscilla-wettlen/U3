@@ -10,4 +10,9 @@ public class PerUnitItem extends BakeryItem {
     public double calculatePrice() {
         return getPrice();
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

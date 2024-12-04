@@ -3,31 +3,20 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CakeManager {
+public class ItemManager {
     private List<Topping> availableToppings = new ArrayList<>();
     private List<Cake> cakesMenu = new ArrayList<>();
+    private List<PerUnitItem> perUnitItems = new ArrayList<>();
 
-    public CakeManager() {
+    public ItemManager() {
         loadToppings();
         loadCakes();
+        loadPerUnitItems();
     }
 
     public void loadToppings() {
-        String[][] toppings = {
-            {"chocolate ganache", "5"},
-            {"lemon glaze", "7"},
-            {"vanilla cream", "8"},
-            {"caramel sauce", "6"},
-            {"toasted nuts", "4"},
-            {"coconut flakes", "6"},
-            {"toffee bits", "5"},
-            {"dried fruits", "9"},
-            {"pistachios", "10"},
-            {"sprinkles", "12"}
-        };
-
-        for (String[] topping : toppings) {
-            availableToppings.add(new Topping(topping[0], Integer.parseInt(topping[1])));
+        for (Topping topping : Topping.values()) {
+            availableToppings.add(topping);
         }
     }
 
@@ -45,9 +34,9 @@ public class CakeManager {
             List<Topping> toppings = new ArrayList<>();
 
             for (int i = 2; i < cake.length; i++) {
-                Topping topping = findToppingByName(cake[i]);
-                if (topping != null) {
-                    toppings.add(topping);
+                Topping toppingEnum = Topping.findToppingByName(cake[i]);
+                if (toppingEnum != null) {
+                    toppings.add(toppingEnum);
                 }
             }
 
@@ -55,16 +44,26 @@ public class CakeManager {
         }
     }
 
-    private Topping findToppingByName(String name) {
-        for (Topping topping : availableToppings) {
-            if (topping.getName().equals(name)) {
-                return topping;
-            }
+    public void loadPerUnitItems() {
+        String[][] items = {
+            {"Cinnamon roll", "35"},
+            {"Gingerbread", "30"},
+            {"Muffin", "25"},
+            {"Cheese cake", "45"}
+        };
+
+        for (String[] item : items) {
+            String name = item[0];
+            double price = Double.parseDouble(item[1]);
+            perUnitItems.add(new PerUnitItem(name, price));
         }
-        return null;
     }
 
     public List<Cake> getCakesMenu() {
         return cakesMenu;
+    }
+
+    public List<PerUnitItem> getPerUnitItems() {
+        return perUnitItems;
     }
 }

@@ -1,21 +1,19 @@
 package controller;
 
 //only imports what is strictly necessary from view-package
+import model.*;
 import view.CustomCakeFrame;
 import view.MainFrame;
 import view.ButtonType;
-import model.Cake; //From Grace
-import model.PerUnitItem;
-import model.CakeManager; //From Grace
-import model.Order; //From Grace
-import model.OrderManager; //From Grace
-import java.util.ArrayList; // From Grace
-import java.util.List; //From Grace
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
     private MainFrame view;
     private CustomCakeFrame newCakeType;
     private ButtonType currentLeftMenu = ButtonType.NoChoice;
+
     private String [] cakeMenuString; // for test purposes only
     private String [] perUnitItemMenuString; // for test purposes only
     private String [] orderHistoryMenuString; // for test purposes only
@@ -24,14 +22,13 @@ public class Controller {
     private double costCurrentOrder = 0; // for test purposes only
     private int nbrOfOrders = 0; // for test purposes only
 
-    private CakeManager model; // From Grace
-    private OrderManager orderManager; // From Grace
-    private PerUnitItem item;
+    private ItemManager itemManager;
+    private OrderManager orderManager;
 
     public Controller() {
         view = new MainFrame(1000, 500, this);
-        model = new CakeManager(); // From Grace
-        orderManager = new OrderManager(); // From Grace
+        itemManager = new ItemManager();
+        orderManager = new OrderManager();
 
         loadStringTestValues(); //for test purposes - remove when not needed more
         view.enableAllButtons();
@@ -109,16 +106,15 @@ public class Controller {
 
             switch (currentLeftMenu) { //This might need to change depending on architecture
                 case Cake:
-                    Cake selectedCake = model.getCakesMenu().get(selectionIndex);
-                    selectedItemDetails = selectedCake.toString();
-                    itemPrice = selectedCake.getPrice();
-                    //currentOrderArray[nbrOfOrders] = cakeMenuString[selectionIndex].toString(); //for test purposes - needs to be replaced with solution of finding chosen menu item matching architecture for model
-                    break;
-                case PerUnitItem:
-                    PerUnitItem selectedItem = orderManager.getPerUnitItems().get(selectionIndex);
+                    BakeryItem selectedItem = itemManager.getCakesMenu().get(selectionIndex);
                     selectedItemDetails = selectedItem.toString();
-                    itemPrice = selectedItem.getPrice();
-                    //currentOrderArray[nbrOfOrders] = perUnitItemMenuString[selectionIndex].toString(); //see comment for case above
+                    itemPrice = selectedItem.calculatePrice();
+                    break;
+
+                case PerUnitItem:
+                    selectedItem = itemManager.getPerUnitItems().get(selectionIndex);
+                    selectedItemDetails = selectedItem.toString();
+                    itemPrice = selectedItem.calculatePrice();
                     break;
             }
             currentOrderArray[nbrOfOrders] = selectedItemDetails;
@@ -144,12 +140,12 @@ public class Controller {
     public void setToCakeMenu() {
         currentLeftMenu = ButtonType.Cake;
 
-        List<Cake> cakesMenu = model.getCakesMenu(); // From Grace
-        cakeMenuString = new String[cakesMenu.size()]; //From Grace
+        List<Cake> cakesMenu = itemManager.getCakesMenu();
+        cakeMenuString = new String[cakesMenu.size()];
 
-        for (int i = 0; i < cakesMenu.size(); i++) { //From Grace
-            cakeMenuString[i] = cakesMenu.get(i).toString(); // From Grace
-        } //From Grace
+        for (int i = 0; i < cakesMenu.size(); i++) {
+            cakeMenuString[i] = cakesMenu.get(i).toString();
+        }
 
         view.populateLeftPanel(cakeMenuString);
         view.populateRightPanel(currentOrderArray); //update left panel with new item - this takes a shortcut in updating the entire information in the panel not just adds to the end
@@ -162,14 +158,12 @@ public class Controller {
     public void setToPerUnitItemMenu() {
         currentLeftMenu = ButtonType.PerUnitItem;
 
-        List<PerUnitItem> perUnitItems = orderManager.getPerUnitItems();
+        List<PerUnitItem> perUnitItems = itemManager.getPerUnitItems();
         perUnitItemMenuString = new String[perUnitItems.size()];
 
         for (int i = 0; i < perUnitItems.size(); i++){
             perUnitItemMenuString[i] = perUnitItems.get(i).toString();
-
         }
-
 
         view.populateLeftPanel(perUnitItemMenuString);
         view.populateRightPanel(currentOrderArray); //update left panel with new item - this takes a shortcut in updating the entire information in the panel not just adds to the end

@@ -53,8 +53,7 @@ public class Cake extends BakeryItem {
         return basePrice;
     }
 
-    @Override
-    public String toString() {
+    public String getToppingsList() {
         String toppingsList = "";
         List<Topping> toppings = getToppings();
         for (int i = 0; i < toppings.size(); i++) {
@@ -63,6 +62,11 @@ public class Cake extends BakeryItem {
                 toppingsList += ", ";
             }
         }
-        return super.getName() + ", Size: " + getCakeSize() + " pieces, Toppings: " + toppingsList + ", Price: " + calculatePrice();
+        return toppingsList;
+    }
+
+    @Override
+    public String toString() {
+        return super.getName() + ", Size: " + getCakeSize() + " pieces, Toppings: " + getToppingsList() + ", Price: " + calculatePrice() + " kr";
     }
 }
