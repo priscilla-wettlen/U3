@@ -47,9 +47,9 @@ public class ItemManager {
     public void loadPerUnitItems() {
         String[][] items = {
             {"Cinnamon roll", "35"},
-            {"Gingerbread", "30"},
+            {"Gingerbread cookie", "10"},
             {"Muffin", "25"},
-            {"Cheese cake", "45"}
+            {"Donut", "20"}
         };
 
         for (String[] item : items) {

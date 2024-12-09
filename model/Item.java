@@ -1,13 +1,16 @@
 package model;
 
-public abstract class BakeryItem {
+import java.util.ArrayList;
+
+public abstract class Item {
     private String name;
     private double price;
 
-    public BakeryItem(String name, double price) {
+    public Item(String name, double price) {
         this.name = name;
         this.price = price;
     }
+
 
     public String getName() {
         return name;

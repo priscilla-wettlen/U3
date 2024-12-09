@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private List<BakeryItem> currentOrderArray;
+    private List<Item> currentOrderArray;
 
     public Order() {
         currentOrderArray = new ArrayList<>();
@@ -12,7 +12,7 @@ public class Order {
 
     public List<String> getOrderItems() {
         List<String> items = new ArrayList<>();
-        for (BakeryItem item : currentOrderArray) {
+        for (Item item : currentOrderArray) {
             items.add(item.toString());
         }
         return items;
@@ -25,15 +25,17 @@ public class Order {
     public double getTotalPrice() {
         double totalPrice = 0.0;
 
-        for (BakeryItem item : currentOrderArray) {
+        for (Item item : currentOrderArray) {
             totalPrice += item.getPrice();
         }
 
         return totalPrice;
+
     }
 
-    public void addItemToCurrentOrderArray(BakeryItem bakeryItem) {
-        currentOrderArray.add(bakeryItem);
+    public void addItemToCurrentOrderArray(Item item) {
+            currentOrderArray.add(item);
+
     }
 
     @Override

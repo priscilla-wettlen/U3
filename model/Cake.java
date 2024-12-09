@@ -1,7 +1,7 @@
 package model;
 import java.util.List;
 
-public class Cake extends BakeryItem {
+public class Cake extends Item {
     private int cakeSize;
     private List<Topping> toppings;
 
@@ -55,7 +55,7 @@ public class Cake extends BakeryItem {
 
     public String getToppingsList() {
         String toppingsList = "";
-        List<Topping> toppings = getToppings();
+        //List<Topping> toppings = getToppings();
         for (int i = 0; i < toppings.size(); i++) {
             toppingsList += toppings.get(i).getName();
             if (i < toppings.size() - 1) {
