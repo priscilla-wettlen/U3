@@ -67,6 +67,9 @@ public class Cake extends Item {
 
     @Override
     public String toString() {
-        return super.getName() + ", Size: " + getCakeSize() + " pieces, Toppings: " + getToppingsList() + ", Price: " + calculatePrice() + " kr";
+        //return super.getName() + ", Size: " + getCakeSize() + " pieces, Toppings: " + getToppingsList() + ", Price: " + calculatePrice() + " kr";
+        return String.format(
+                "%s%n  Size: %s%n  Toppings: %s%n  Price: %.2f kr",
+                super.getName(), getCakeSize(), getToppingsList(), getPrice());
     }
 }

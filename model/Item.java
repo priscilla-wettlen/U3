@@ -32,7 +32,8 @@ public abstract class Item {
 
     @Override
     public String toString() {
-        return name + ", " + price + " kr";
+        return String.format(
+                "%s%n: %.2f kr ", name, price);
     }
 }
 
