@@ -66,4 +66,8 @@ public class ItemManager {
     public List<PerUnitItem> getPerUnitItems() {
         return perUnitItems;
     }
+
+    public void addCakeToMenu(Cake newCake) {
+        cakesMenu.add(newCake);
+    }
 }

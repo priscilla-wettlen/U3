@@ -51,9 +51,9 @@ public class Controller {
                 setToPerUnitItemMenu();
                 break;
 
-//            case MakeCake:
-//                addNewCake();
-//                break;
+            case MakeCake:
+                addNewCake();
+                break;
 
             case OrderHistory:
                 setToOrderHistoryMenu();
@@ -178,8 +178,29 @@ public class Controller {
 
     public void addNewCake() {
         newCakeType = new CustomCakeFrame(this);
-        //For grade VG: Add more code to save the new cake type and update menu,
+        setToCakeMenu();
         view.enableAllButtons();
+    }
+
+    public void addNewCakeToMenu(Cake newCake) {
+        itemManager.addCakeToMenu(newCake);
+
+        currentLeftMenu = ButtonType.Cake;
+
+        List<Cake> cakesMenu = itemManager.getCakesMenu();
+        List<String> cakeMenuStringList = new ArrayList<>();
+
+        for (Cake cake : cakesMenu) {
+            cakeMenuStringList.add(cake.toString());
+        }
+
+        double costCurrentOrder = currentOrder.getTotalPrice();
+        String[] cakeMenuString = cakeMenuStringList.toArray(new String[0]);
+
+        view.populateLeftPanel(cakeMenuString);
+        view.setTextCostLabelRightPanel("Total cost of order: " + String.valueOf(costCurrentOrder));
+        view.disableCakeMenuButton();
+        view.disableViewSelectedOrderButton();
     }
 
     public void placeOrder() {
