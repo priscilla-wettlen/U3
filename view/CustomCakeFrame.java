@@ -37,7 +37,7 @@ public class CustomCakeFrame extends JFrame implements ActionListener {
         selectedToppings = new ArrayList<>();
     }
 
-    private void setupPanel() {
+    public void setupPanel() {
         JLabel nameLabel = new JLabel("Cake name:");
         cakeNameField = new JTextField(15);
 
@@ -71,7 +71,7 @@ public class CustomCakeFrame extends JFrame implements ActionListener {
         mainPanel.add(saveButton);
     }
 
-    private void toggleToppingSelection(Topping selectedTopping) {
+    public void toggleToppingSelection(Topping selectedTopping) {
         if (selectedToppings.contains(selectedTopping)) {
             selectedToppings.remove(selectedTopping);
         } else {
