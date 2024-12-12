@@ -20,7 +20,7 @@ public class Controller {
     private Order currentOrder;
     private List<Order> previousOrders;
     List<String> itemsToOrder;
-    private int orderCounter = 101;
+    //private int orderCounter = 100;
 
 
 
@@ -106,8 +106,12 @@ public class Controller {
         double costSelectedOrder;
         //selectedOrderItems = orderHistory[selectionIndex].split(",");
         if ((selectionIndex != -1) && currentLeftMenu==ButtonType.OrderHistory){
-                selectedOrderItems = new String[]{orderHistory[selectionIndex]};
-             costSelectedOrder = previousOrders.get(selectionIndex).getTotalPrice();
+            selectedOrderItems = new String[]{orderHistory[selectionIndex]};
+            for(String str : orderHistory){
+                selectedOrderItems = str.split("\n");
+            }
+
+            costSelectedOrder = previousOrders.get(selectionIndex).getTotalPrice();
 
             view.populateRightPanel(selectedOrderItems);
             view.setTextCostLabelRightPanel("Total cost of order: " + costSelectedOrder);
@@ -169,8 +173,7 @@ public class Controller {
             Order order = previousOrders.get(i);
             String orderedItems = order.getOrderItems().toString();
             orderHistory[i] = orderedItems;
-            orderHistoryPrices[i] = "Order#" + orderCounter + ": " + order.getTotalPrice() + " kr";
-            orderCounter++;
+            orderHistoryPrices[i] = "Order#" + order.getOrderNumber() + ": " + order.getTotalPrice() + " kr";
         }
 
 

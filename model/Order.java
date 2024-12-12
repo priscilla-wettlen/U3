@@ -5,9 +5,12 @@ import java.util.List;
 
 public class Order {
     private List<Item> currentOrderArray;
+    private int orderNumber;
+    private static int nextOrderNumber = 1;
 
     public Order() {
         currentOrderArray = new ArrayList<>();
+        this.orderNumber = nextOrderNumber++;
     }
 
     public List<String> getOrderItems() {
@@ -38,8 +41,12 @@ public class Order {
 
     }
 
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
     @Override
     public String toString() {
-        return "Total Price = " + getTotalPrice();
+        return "Order " + getOrderNumber() + "Total Price = " + getTotalPrice();
     }
 }
