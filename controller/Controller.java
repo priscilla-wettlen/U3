@@ -104,12 +104,10 @@ public class Controller {
     public void viewSelectedOrder(int selectionIndex){
         String[] selectedOrderItems;
         double costSelectedOrder;
-        //selectedOrderItems = orderHistory[selectionIndex].split(",");
         if ((selectionIndex != -1) && currentLeftMenu==ButtonType.OrderHistory){
-            selectedOrderItems = new String[]{orderHistory[selectionIndex]};
-//            for(String str : orderHistory){
-//                selectedOrderItems = str.split("\n");
-//            }
+            String str = orderHistory[selectionIndex];
+            String regex =",(?!\\s*\\d)";
+            selectedOrderItems = str.split(regex);
 
             costSelectedOrder = previousOrders.get(selectionIndex).getTotalPrice();
 
