@@ -216,7 +216,8 @@ public class Controller {
 
     public void placeOrder() {
         if (currentOrder.getCurrentOrderLength() == 0) {
-            System.out.println("Your order must contain at least 1 item!");
+            JOptionPane.showMessageDialog(null, "Your order must contain at least 1 item!");
+            //System.out.println("Your order must contain at least 1 item!");
             return;
         }
 
