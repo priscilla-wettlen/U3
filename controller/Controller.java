@@ -20,7 +20,8 @@ public class Controller {
     private Order currentOrder;
     private List<Order> previousOrders;
     List<String> itemsToOrder;
-    //private int orderCounter;
+    private int orderCounter = 101;
+
 
 
     public Controller() {
@@ -95,20 +96,21 @@ public class Controller {
             double costCurrentOrder = currentOrder.getTotalPrice();
             String[] currentOrderArray = orderItems.toArray(new String[0]);
 
-            //nbrOfOrders++; //for test purposes - need to be removed or changed when model for handling orders is implemented
-            //costCurrentOrder = costCurrentOrder + 100; //for test purposes - replace with calculation of cost when how orders are handled is implemented in model
             view.populateRightPanel(currentOrderArray); //update left panel with new item - this takes a shortcut in updating the entire information in the panel not just adds to the end
             view.setTextCostLabelRightPanel("Total cost of order: " + String.valueOf(costCurrentOrder)); //set the text to show cost of current order
         }
     }
 
     public void viewSelectedOrder(int selectionIndex){
-        System.out.println("Index selection left panel: " + selectionIndex); //for test purposes  - remove when not needed
+        String[] selectedOrderItems;
+        double costSelectedOrder;
+        //selectedOrderItems = orderHistory[selectionIndex].split(",");
         if ((selectionIndex != -1) && currentLeftMenu==ButtonType.OrderHistory){
-            currentOrder.getTotalPrice();
-            //TODO
-            //view.populateRightPanel(order1Simulation); //update left panel with order details - this takes a shortcut in updating the entire information in the panel not just adds to the end
-            view.setTextCostLabelRightPanel("Total cost of order: " + String.valueOf(currentOrder.getTotalPrice()));
+                selectedOrderItems = new String[]{orderHistory[selectionIndex]};
+             costSelectedOrder = previousOrders.get(selectionIndex).getTotalPrice();
+
+            view.populateRightPanel(selectedOrderItems);
+            view.setTextCostLabelRightPanel("Total cost of order: " + costSelectedOrder);
         }
     }
 
@@ -157,6 +159,7 @@ public class Controller {
     public void setToOrderHistoryMenu() {
         currentLeftMenu = ButtonType.OrderHistory;
         orderHistory = new String[previousOrders.size()];
+        String[] orderHistoryPrices = new String[previousOrders.size()];
 
         if(orderManager.getOrderHistory().isEmpty() || previousOrders.isEmpty()){
             JOptionPane.showMessageDialog(null, "You have no previous orders.");
@@ -166,11 +169,15 @@ public class Controller {
             Order order = previousOrders.get(i);
             String orderedItems = order.getOrderItems().toString();
             orderHistory[i] = orderedItems;
+            orderHistoryPrices[i] = "Order#" + orderCounter + ": " + order.getTotalPrice() + " kr";
+            orderCounter++;
         }
 
 
         view.clearRightPanel();
-        view.populateLeftPanel(orderHistory);
+        //TODO show the entire cake info ob right panel instead of left
+        view.populateLeftPanel(orderHistoryPrices);
+        //view.populateRightPanel(orderHistory);
         view.enableAllButtons();
         view.disableAddMenuButton();
         view.disableOrderButton();
@@ -185,7 +192,7 @@ public class Controller {
     public void addNewCakeToMenu(Cake newCake) {
         itemManager.addCakeToMenu(newCake);
 
-        currentLeftMenu = ButtonType.Cake;
+        currentLeftMenu = ButtonType.Cake; //TODO CHECK WHY IT SAYS DUPLICATED CODE
 
         List<Cake> cakesMenu = itemManager.getCakesMenu();
         List<String> cakeMenuStringList = new ArrayList<>();
@@ -196,6 +203,7 @@ public class Controller {
 
         double costCurrentOrder = currentOrder.getTotalPrice();
         String[] cakeMenuString = cakeMenuStringList.toArray(new String[0]);
+
 
         view.populateLeftPanel(cakeMenuString);
         view.setTextCostLabelRightPanel("Total cost of order: " + String.valueOf(costCurrentOrder));
@@ -209,6 +217,7 @@ public class Controller {
             return;
         }
 
+        //TODO
         itemsToOrder = currentOrder.getOrderItems();
         orderManager.addOrder(currentOrder);
         previousOrders.add(currentOrder);
@@ -216,7 +225,7 @@ public class Controller {
         JOptionPane.showMessageDialog(null, "Your order has been confirmed!");
         currentOrder = new Order();
         view.clearRightPanel(); //Removes information from right panel in GUI
-        view.setTextCostLabelRightPanel("TOTAL COST: 0.0 kr");
+        view.setTextCostLabelRightPanel("TOTAL COST: " + currentOrder.getTotalPrice());
         view.enableAllButtons();
         //view.disableAddMenuButton();
         view.disableViewSelectedOrderButton();
