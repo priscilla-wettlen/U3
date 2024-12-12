@@ -107,9 +107,9 @@ public class Controller {
         //selectedOrderItems = orderHistory[selectionIndex].split(",");
         if ((selectionIndex != -1) && currentLeftMenu==ButtonType.OrderHistory){
             selectedOrderItems = new String[]{orderHistory[selectionIndex]};
-            for(String str : orderHistory){
-                selectedOrderItems = str.split("\n");
-            }
+//            for(String str : orderHistory){
+//                selectedOrderItems = str.split("\n");
+//            }
 
             costSelectedOrder = previousOrders.get(selectionIndex).getTotalPrice();
 
