@@ -113,6 +113,11 @@ public class CustomCakeFrame extends JFrame implements ActionListener {
                 return;
             }
 
+            if (selectedToppings.size() < 2) {
+                JOptionPane.showMessageDialog(this, "Please select at least 2 toppings.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Cake newCake = new Cake(cakeName, pieces, selectedToppings);
             controller.addNewCakeToMenu(newCake);
 
