@@ -128,12 +128,13 @@ public class Controller {
      *                       It only works if the current menu is OrderHistory.
      * @author Priscilla Wettlén
      */
-    public void viewSelectedOrder(int selectionIndex){
+    public void viewSelectedOrder(int selectionIndex) {
         String[] selectedOrderItems;
         double costSelectedOrder;
-        if ((selectionIndex != -1) && currentLeftMenu==ButtonType.OrderHistory){
+
+        if ((selectionIndex != -1) && currentLeftMenu == ButtonType.OrderHistory){
             String str = orderHistory[selectionIndex];
-            String regex =",(?!\\s*\\d)";
+            String regex = ",(?!\\s*\\d)";
             selectedOrderItems = str.split(regex);
 
             costSelectedOrder = previousOrders.get(selectionIndex).getTotalPrice();

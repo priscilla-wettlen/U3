@@ -125,6 +125,7 @@ public class Cake extends Item {
     public String toString() {
         return String.format(
                 "%s%n  Size: %s%n  Toppings: %s%n  Price: %.2f kr ",
-                super.getName(), cakeSize, getToppingsList(), calculatePrice());
+                super.getName(), cakeSize, getToppingsList(), calculatePrice()
+        );
     }
 }
