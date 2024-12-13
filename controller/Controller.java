@@ -27,7 +27,6 @@ public class Controller {
     private Order currentOrder;
     private List<Order> previousOrders;
     List<String> itemsToOrder;
-    //private int orderCounter = 100;
 
     /**
      * This method constructs the Controller and initialises the application with the main GUI frame,
@@ -55,7 +54,6 @@ public class Controller {
      */
     //This method is called by class MinFrame when a button in teh GUI is pressed
     public void buttonPressed(ButtonType button){
-
         switch (button) {
             case Add:
                 addItemToOrder(view.getSelectionLeftPanel());
@@ -95,8 +93,6 @@ public class Controller {
      * @author Yin Ting Chan, Priscilla Wettlén
      */
     public void addItemToOrder(int selectionIndex) {
-        //System.out.println("Index selection left panel: " + selectionIndex); //for test purposes  - remove when not needed
-
         if (selectionIndex != -1){ // if something is selected in the left menu list
             double itemPrice = 0;
 
@@ -232,7 +228,6 @@ public class Controller {
         }
 
         view.clearRightPanel();
-        //TODO show the entire cake info ob right panel instead of left
         view.populateLeftPanel(orderHistoryPrices);
         //view.populateRightPanel(orderHistory);
         view.enableAllButtons();
@@ -295,11 +290,9 @@ public class Controller {
     public void placeOrder() {
         if (currentOrder.getCurrentOrderLength() == 0) {
             JOptionPane.showMessageDialog(null, "Your order must contain at least 1 item!");
-            //System.out.println("Your order must contain at least 1 item!");
             return;
         }
 
-        //TODO
         itemsToOrder = currentOrder.getOrderItems();
         orderManager.addOrder(currentOrder);
         previousOrders.add(currentOrder);

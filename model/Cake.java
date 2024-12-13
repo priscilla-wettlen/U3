@@ -106,7 +106,6 @@ public class Cake extends Item {
      */
     public String getToppingsList() {
         String toppingsList = "";
-        //List<Topping> toppings = getToppings();
         for (int i = 0; i < toppings.size(); i++) {
             toppingsList += toppings.get(i).getName();
             if (i < toppings.size() - 1) {
@@ -124,7 +123,6 @@ public class Cake extends Item {
      */
     @Override
     public String toString() {
-        //return super.getName() + ", Size: " + getCakeSize() + " pieces, Toppings: " + getToppingsList() + ", Price: " + calculatePrice() + " kr %n%n";
         return String.format(
                 "%s%n  Size: %s%n  Toppings: %s%n  Price: %.2f kr ",
                 super.getName(), cakeSize, getToppingsList(), calculatePrice());
