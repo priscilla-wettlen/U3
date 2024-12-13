@@ -26,7 +26,6 @@ public class Controller {
     private OrderManager orderManager;
     private Order currentOrder;
     private List<Order> previousOrders;
-    List<String> itemsToOrder;
 
     /**
      * This method constructs the Controller and initialises the application with the main GUI frame,
@@ -293,7 +292,6 @@ public class Controller {
             return;
         }
 
-        itemsToOrder = currentOrder.getOrderItems();
         orderManager.addOrder(currentOrder);
         previousOrders.add(currentOrder);
 

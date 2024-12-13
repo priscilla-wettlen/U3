@@ -86,4 +86,3 @@ public abstract class Item {
                 "%s%n: %.2f kr", name, price);
     }
 }
-
