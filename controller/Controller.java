@@ -223,8 +223,8 @@ public class Controller {
         for (int i = 0; i < previousOrders.size(); i++) {
             Order order = previousOrders.get(i);
             String orderedItems = order.getOrderItems().toString();
-            orderHistory[i] = orderedItems;
-            orderHistoryPrices[i] = "Order#" + order.getOrderNumber() + ": " + order.getTotalPrice() + " kr";
+            orderHistory[i] = orderedItems; //Displays the whole contents of the order on right panel when we click "view order". It's instance variable
+           orderHistoryPrices[i] = "Order#" + order.getOrderNumber() + ": " + order.getTotalPrice() + " kr"; //Displays only order id and price on left panel
         }
 
         view.clearRightPanel();
