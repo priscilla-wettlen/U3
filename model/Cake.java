@@ -74,28 +74,28 @@ public class Cake extends Item {
      */
     @Override
     public double calculatePrice() {
-        double basePrice = 0;
+        double price = 0;
 
         switch (cakeSize) {
             case 4:
-                basePrice = 100;
+                price = 100;
                 break;
             case 6:
-                basePrice = 150;
+                price = 150;
                 break;
             case 12:
-                basePrice = 300;
+                price = 300;
                 break;
             default:
-                basePrice = 50;
+                price = 50;
         }
 
         for (Topping topping : toppings) {
-            basePrice += topping.getPrice();
+            price += topping.getPrice();
         }
 
-        super.setPrice(basePrice);
-        return basePrice;
+        super.setPrice(price);
+        return price;
     }
 
     /**
