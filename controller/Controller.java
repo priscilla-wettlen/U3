@@ -10,6 +10,13 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class acts as the central controller for the application, managing the interactions
+ * between the model and view layers. It handles user inputs, updates the GUI,
+ * and manages logic related to orders and items.
+
+ * @author Yin Ting Chan, Priscilla Wettlén
+ */
 public class Controller {
     private MainFrame view;
     private CustomCakeFrame newCakeType;
@@ -22,8 +29,12 @@ public class Controller {
     List<String> itemsToOrder;
     //private int orderCounter = 100;
 
-
-
+    /**
+     * This method constructs the Controller and initialises the application with the main GUI frame,
+     * item and order managers, and sets up the initial state for the order and GUI.
+     *
+     * @author Yin Ting Chan, Priscilla Wettlén
+     */
     public Controller() {
         view = new MainFrame(1000, 500, this);
         itemManager = new ItemManager();
@@ -35,7 +46,13 @@ public class Controller {
         view.disableViewSelectedOrderButton();
     }
 
-
+    /**
+     * This method handles button press events from the GUI, representing functionality
+     * based on the type of button pressed.
+     *
+     * @param button The type of button that was pressed
+     * @author teacher
+     */
     //This method is called by class MinFrame when a button in teh GUI is pressed
     public void buttonPressed(ButtonType button){
 
@@ -70,6 +87,13 @@ public class Controller {
         }
     }
 
+    /**
+     * This method adds the selected item to the current order.
+     * It updates the right panel in the GUI to reflect the updated order.
+     *
+     * @param selectionIndex The index of the selected item in the left panel
+     * @author Yin Ting Chan, Priscilla Wettlén
+     */
     public void addItemToOrder(int selectionIndex) {
         //System.out.println("Index selection left panel: " + selectionIndex); //for test purposes  - remove when not needed
 
@@ -101,6 +125,14 @@ public class Controller {
         }
     }
 
+    /**
+     * This method displays the items of the selected previous order in the right panel.
+     * It updates the cost label to show the total cost of the selected order.
+     *
+     * @param selectionIndex The index of the selected order in the left panel.
+     *                       It only works if the current menu is OrderHistory.
+     * @author Priscilla Wettlén
+     */
     public void viewSelectedOrder(int selectionIndex){
         String[] selectedOrderItems;
         double costSelectedOrder;
@@ -116,6 +148,13 @@ public class Controller {
         }
     }
 
+    /**
+     * This method updates the left panel to display the cake menu and prepares the GUI for
+     * adding cakes to the current order.
+     * It disables specific buttons and updates the cost label with the total cost of the current order.
+     *
+     * @author Yin Ting Chan
+     */
     public void setToCakeMenu() {
         currentLeftMenu = ButtonType.Cake;
 
@@ -137,6 +176,15 @@ public class Controller {
         view.disableViewSelectedOrderButton();
     }
 
+    /**
+     * This method updates the left panel to display the per-unit item menu.
+     * It prepares the GUI for adding per-unit items to the current order by populating
+     * the left panel with the available items and their details.
+     * It also updates the cost label on the right panel with the total cost of the current order,
+     * and disables certain buttons to reflect the current menu state.
+     *
+     * @author Priscilla Wettlén
+     */
     public void setToPerUnitItemMenu() {
         currentLeftMenu = ButtonType.PerUnitItem;
 
@@ -158,6 +206,15 @@ public class Controller {
         view.disableViewSelectedOrderButton();
     }
 
+    /**
+     * This method displays the order history in the left panel, including the total cost of each
+     * previous order. If there are no previous orders, a dialog is shown to notify the user.
+     * It prepares the GUI for viewing order history by clearing the right panel and
+     * updating the left panel with the order history, as well as
+     * disabling certain buttons to reflect the current menu state.
+     *
+     * @author Priscilla Wettlén
+     */
     public void setToOrderHistoryMenu() {
         currentLeftMenu = ButtonType.OrderHistory;
         orderHistory = new String[previousOrders.size()];
@@ -174,7 +231,6 @@ public class Controller {
             orderHistoryPrices[i] = "Order#" + order.getOrderNumber() + ": " + order.getTotalPrice() + " kr";
         }
 
-
         view.clearRightPanel();
         //TODO show the entire cake info ob right panel instead of left
         view.populateLeftPanel(orderHistoryPrices);
@@ -184,16 +240,31 @@ public class Controller {
         view.disableOrderButton();
     }
 
+    /**
+     * This method launches the `CustomCakeFrame` for creating a new custom cake and
+     * switches to the cake menu to allow the user to add the new cake to the current order.
+     * It enables all buttons after the operation.
+     *
+     * @author Yin Ting Chan, Priscilla Wettlén
+     */
     public void addNewCake() {
         newCakeType = new CustomCakeFrame(this);
         setToCakeMenu();
         view.enableAllButtons();
     }
 
+    /**
+     * This method adds a new custom cake to the cake menu and updates the left panel to include the newly added cake.
+     * It switches to the cake menu and displays the updated list of cakes, as well as
+     * disables certain buttons to reflect the current menu state.
+     *
+     * @param newCake The new cake to be added to the cake menu
+     * @author Yin Ting Chan, Priscilla Wettlén
+     */
     public void addNewCakeToMenu(Cake newCake) {
         itemManager.addCakeToMenu(newCake);
 
-        currentLeftMenu = ButtonType.Cake; //TODO CHECK WHY IT SAYS DUPLICATED CODE
+        currentLeftMenu = ButtonType.Cake;
 
         List<Cake> cakesMenu = itemManager.getCakesMenu();
         List<String> cakeMenuStringList = new ArrayList<>();
@@ -205,13 +276,22 @@ public class Controller {
         double costCurrentOrder = currentOrder.getTotalPrice();
         String[] cakeMenuString = cakeMenuStringList.toArray(new String[0]);
 
-
         view.populateLeftPanel(cakeMenuString);
         view.setTextCostLabelRightPanel("Total cost of order: " + String.valueOf(costCurrentOrder));
         view.disableCakeMenuButton();
         view.disableViewSelectedOrderButton();
     }
 
+    /**
+     * This method confirms the current order and adds it to the order history.
+     * It clears the current order and updates the GUI to reflect the new state.
+     * It ensures that an order contains at least one item before confirming.
+     * It displays a dialog box for confirmation or errors.
+     * It resets the right panel to reflect an empty current order and
+     * enables all buttons for further operations.
+     *
+     * @author Yin Ting Chan, Priscilla Wettlén
+     */
     public void placeOrder() {
         if (currentOrder.getCurrentOrderLength() == 0) {
             JOptionPane.showMessageDialog(null, "Your order must contain at least 1 item!");
@@ -232,5 +312,4 @@ public class Controller {
         //view.disableAddMenuButton();
         view.disableViewSelectedOrderButton();
     }
-
 }
